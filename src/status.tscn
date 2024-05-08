@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbnq6i31gprk0"]
+
+[ext_resource type="Script" path="res://src/status.gd" id="1_1e56p"]
+[ext_resource type="Texture2D" uid="uid://bn14cpjg3ayif" path="res://src/avatar_default.svg" id="2_s1gu5"]
+
+[node name="Post" type="PanelContainer"]
+script = ExtResource("1_1e56p")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Avatar" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_s1gu5")
+expand_mode = 1
+
+[node name="Username" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.00830487, 0.631994, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Username"
+
+[node name="Content" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+text = "Content"
+fit_content = true
+autowrap_mode = 2
+
+[node name="MediaAttachments" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
