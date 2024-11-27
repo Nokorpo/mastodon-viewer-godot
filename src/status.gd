@@ -1,3 +1,4 @@
+class_name MastodonStatus
 extends PanelContainer
 
 const MEDIA_ATTACHMENT = preload("res://src/media_attachment.tscn")

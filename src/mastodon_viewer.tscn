@@ -9,8 +9,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uqcae")
-server_url = "https://c.im"
-user_id = "109332042787197762"
+profile_url = "https://gamedev.lgbt/@nokorpo"
+server_url = "https://gamedev.lgbt"
+user_id = "112569134535397857"
+username = "nokorpo"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
