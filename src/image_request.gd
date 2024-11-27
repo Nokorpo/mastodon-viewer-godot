@@ -3,10 +3,12 @@ class_name ImageRequest
 ## HTTPRequest that returns a texture
 
 var file_extension: String
+var _url: String
 
 signal image_request_completed(new_texture: ImageTexture)
 
 func request_image(url: String) -> void:
+	_url = url
 	file_extension = _get_image_extension(url)
 	
 	request_completed.connect(_http_request_completed)
@@ -29,7 +31,7 @@ func _http_request_completed(result, _response_code, _headers, body):
 			error = image.load_jpg_from_buffer(body)
 	
 	if error != OK:
-		push_warning("Couldn't load the image.")
+		push_warning("Couldn't load the image with the following URL: '%s'" % _url)
 	else:
 		image_request_completed.emit(ImageTexture.create_from_image(image))
 	queue_free()
