@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsnt3vo2uuofs"]
+
+[ext_resource type="Script" path="res://addons/mastodon_viewer/wrapper.gd" id="1_uygan"]
+
+[node name="Example" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="MastodonViewer" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_uygan")
+profile_url = "https://gamedev.lgbt/@nokorpo"
+server_url = "https://gamedev.lgbt"
+user_id = "112569134535397857"
+username = "nokorpo"

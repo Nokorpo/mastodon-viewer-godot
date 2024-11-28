@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Mastodon viewer Godot"
-run/main_scene="res://src/mastodon_viewer.tscn"
+run/main_scene="res://addons/mastodon_viewer/interface/mastodon_viewer.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/mastodon_viewer/plugin.cfg")
 
 [rendering]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dor8r54rd6v1n"]
 
-[ext_resource type="Script" path="res://src/mastodon_viewer.gd" id="1_uqcae"]
+[ext_resource type="Script" path="res://addons/mastodon_viewer/interface/mastodon_viewer.gd" id="1_uqcae"]
 
 [node name="MastodonViewer" type="PanelContainer"]
 anchors_preset = 15
@@ -9,10 +9,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uqcae")
-profile_url = "https://gamedev.lgbt/@nokorpo"
-server_url = "https://gamedev.lgbt"
-user_id = "112569134535397857"
-username = "nokorpo"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2

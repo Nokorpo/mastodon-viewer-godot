@@ -1,7 +1,6 @@
-class_name MastodonStatus
 extends PanelContainer
 
-const MEDIA_ATTACHMENT = preload("res://src/media_attachment.tscn")
+const MEDIA_ATTACHMENT = preload("res://addons/mastodon_viewer/interface/media_attachment.tscn")
 
 func set_username(username: String) -> void:
 	$MarginContainer/VBoxContainer/HBoxContainer/Username.text = username

@@ -1,9 +1,7 @@
 @tool
-@icon("./mastodon_viewer_icon.svg")
-class_name MastodonViewer
 extends Control
 
-const STATUS = preload("res://src/status.tscn")
+const MASTODON_VIEWER_NODE = preload("res://addons/mastodon_viewer/interface/mastodon_viewer.tscn")
 
 ## The URL pointing to a Mastodon user profile.
 ## [br][br]
@@ -16,6 +14,9 @@ const STATUS = preload("res://src/status.tscn")
 	set(url):
 		profile_url = url
 		if Engine.is_editor_hint() and self.is_inside_tree() and not url.is_empty():
+			if url.count("/") < 3:
+				show_error("The URL is not a valid Mastodon user profile URL.")
+				return
 			var url_parser: UrlParser = UrlParser.new(url)
 			if server_url == url_parser.server_url and username == url_parser.path:
 				print("User already loaded, skipping.")
@@ -47,6 +48,15 @@ const STATUS = preload("res://src/status.tscn")
 ## Example: "nokorpo"
 @export var username: String
 
+var mastodon_viewer_instance: Control
+
+func _ready() -> void:
+	if !Engine.is_editor_hint():
+		mastodon_viewer_instance = MASTODON_VIEWER_NODE.instantiate()
+		mastodon_viewer_instance.server_url = server_url
+		mastodon_viewer_instance.user_id = user_id
+		mastodon_viewer_instance.statuses_quantity = statuses_quantity
+		add_child(mastodon_viewer_instance)
 
 func _request_user_data(domain: String, user_name_from_path: String) -> void:
 	var request_url = "https://%s/api/v1/accounts/lookup?acct=%s@%s" \
@@ -73,69 +83,15 @@ func _update_user_data(result, _response_code, _headers, body) -> void:
 	username = json["username"]
 	print("Successfully set user id and domain.")
 
-func _ready() -> void:
-	_request_user_status_updates()
-
-func _request_user_status_updates() -> void:
-	var http_request := HTTPRequest.new()
-	add_child(http_request)
-	http_request.request_completed.connect(_update_user_status_updates)
-	http_request.request_completed.connect(http_request.queue_free.unbind(4))
-	var error = http_request.request("%s/api/v1/accounts/%s/statuses?limit=%s" \
-		% [server_url, user_id, str(statuses_quantity)])
-	if error != OK:
-		show_error("An error occurred in the HTTP request.")
-
-func _update_user_status_updates(result, _response_code, _headers, body):
-	if result != HTTPRequest.RESULT_SUCCESS:
-		show_error("An error occurred in the HTTP request.")
-		return
-
-	$Status.visible = false
-	var json = _parse_json(body)
-	for status_dictionary: Dictionary in json:
-		if status_dictionary.reblog:
-			_create_reblog_status(status_dictionary)
-		else:
-			_create_post_status(status_dictionary)
-
-func _create_post_status(status_dictionary: Dictionary) -> MastodonStatus:
-	var new_status = STATUS.instantiate()
-	%StatusList.add_child(new_status)
-	var content_raw: String = status_dictionary.content
-	new_status.set_username(status_dictionary.account.display_name)
-	new_status.set_avatar(status_dictionary.account.avatar)
-	new_status.set_content(_remove_html_tags(content_raw))
-	if status_dictionary.media_attachments:
-		new_status.set_media_attachments(status_dictionary.media_attachments)
-	return null
-
-func _create_reblog_status(status_dictionary: Dictionary) -> MastodonStatus:
-	var new_status = STATUS.instantiate()
-	%StatusList.add_child(new_status)
-	var content_raw: String = status_dictionary.reblog.content
-	new_status.set_username(status_dictionary.reblog.account.display_name)
-	new_status.set_avatar(status_dictionary.reblog.account.avatar)
-	new_status.set_content(_remove_html_tags(content_raw))
-	if status_dictionary.reblog.media_attachments:
-		new_status.set_media_attachments(status_dictionary.reblog.media_attachments)
-	return null
-
 func show_error(message: String):
 	if !Engine.is_editor_hint():
-		$Status.text = message
+		mastodon_viewer_instance.get_node("Status").text = message
 	push_warning(message)
-
-static func _remove_html_tags(html: String) -> String:
-	var html_tags_regex: RegEx = RegEx.new()
-	html_tags_regex.compile("<[^>]*>")
-	return html_tags_regex.sub(html, "", true)
 
 static func _parse_json(response_body: PackedByteArray) -> Variant:
 	var json = JSON.new()
 	json.parse(response_body.get_string_from_utf8())
 	return json.get_data()
-
 
 class UrlParser:
 	var server_url: String

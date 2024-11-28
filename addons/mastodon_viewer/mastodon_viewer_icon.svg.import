@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k5k4n80aiyna"
-path="res://.godot/imported/mastodon_viewer_icon.svg-bea07e5d14956c0ccdc74317c53f3dea.ctex"
+path="res://.godot/imported/mastodon_viewer_icon.svg-bc64fd72284087da993e837abe25c45f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/mastodon_viewer_icon.svg"
-dest_files=["res://.godot/imported/mastodon_viewer_icon.svg-bea07e5d14956c0ccdc74317c53f3dea.ctex"]
+source_file="res://addons/mastodon_viewer/mastodon_viewer_icon.svg"
+dest_files=["res://.godot/imported/mastodon_viewer_icon.svg-bc64fd72284087da993e837abe25c45f.ctex"]
 
 [params]
 

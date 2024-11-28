@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dk4d2ixxj6dm1"]
 
-[ext_resource type="Script" path="res://src/media_attachment.gd" id="1_rg0ij"]
+[ext_resource type="Script" path="res://addons/mastodon_viewer/interface/media_attachment.gd" id="1_rg0ij"]
 
 [node name="MediaAttachment" type="TextureRect"]
 custom_minimum_size = Vector2(32, 32)

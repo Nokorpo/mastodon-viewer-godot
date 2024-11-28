@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbnq6i31gprk0"]
 
-[ext_resource type="Script" path="res://src/status.gd" id="1_1e56p"]
-[ext_resource type="Texture2D" uid="uid://bn14cpjg3ayif" path="res://src/avatar_default.svg" id="2_s1gu5"]
+[ext_resource type="Script" path="res://addons/mastodon_viewer/interface/status.gd" id="1_1e56p"]
+[ext_resource type="Texture2D" uid="uid://bn14cpjg3ayif" path="res://addons/mastodon_viewer/interface/avatar_default.svg" id="2_s1gu5"]
 
 [node name="Post" type="PanelContainer"]
 script = ExtResource("1_1e56p")
