@@ -36,6 +36,7 @@ text = "Username"
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
+bbcode_enabled = true
 text = "Content"
 fit_content = true
 autowrap_mode = 2
@@ -44,3 +45,5 @@ autowrap_mode = 2
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+
+[connection signal="meta_clicked" from="MarginContainer/VBoxContainer/Content" to="." method="_open_link"]

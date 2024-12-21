@@ -24,3 +24,7 @@ func set_media_attachments(media_array: Array) -> void:
 
 func _image_request_completed(new_texture):
 	$MarginContainer/VBoxContainer/HBoxContainer/Avatar.texture = new_texture
+
+# From docs: https://docs.godotengine.org/en/stable/classes/class_richtextlabel.html#class-richtextlabel-signal-meta-clicked
+func _open_link(meta):
+	OS.shell_open(str(meta))

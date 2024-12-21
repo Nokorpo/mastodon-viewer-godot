@@ -38,7 +38,7 @@ func _create_post_status(status_dictionary: Dictionary) -> Control:
 	var content_raw: String = status_dictionary.content
 	new_status.set_username(status_dictionary.account.display_name)
 	new_status.set_avatar(status_dictionary.account.avatar)
-	new_status.set_content(_remove_html_tags(content_raw))
+	new_status.set_content(HtmlParser.convert_html_to_bbcode(content_raw))
 	if status_dictionary.media_attachments:
 		new_status.set_media_attachments(status_dictionary.media_attachments)
 	return null
@@ -49,15 +49,10 @@ func _create_reblog_status(status_dictionary: Dictionary) -> Control:
 	var content_raw: String = status_dictionary.reblog.content
 	new_status.set_username(status_dictionary.reblog.account.display_name)
 	new_status.set_avatar(status_dictionary.reblog.account.avatar)
-	new_status.set_content(_remove_html_tags(content_raw))
+	new_status.set_content(HtmlParser.convert_html_to_bbcode(content_raw))
 	if status_dictionary.reblog.media_attachments:
 		new_status.set_media_attachments(status_dictionary.reblog.media_attachments)
 	return null
-
-static func _remove_html_tags(html: String) -> String:
-	var html_tags_regex: RegEx = RegEx.new()
-	html_tags_regex.compile("<[^>]*>")
-	return html_tags_regex.sub(html, "", true)
 
 static func _parse_json(response_body: PackedByteArray) -> Variant:
 	var json = JSON.new()
