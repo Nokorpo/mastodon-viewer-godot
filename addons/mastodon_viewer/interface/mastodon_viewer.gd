@@ -36,7 +36,7 @@ func _create_post_status(status_dictionary: Dictionary) -> Control:
 	var new_status = STATUS.instantiate()
 	%StatusList.add_child(new_status)
 	var content_raw: String = status_dictionary.content
-	new_status.set_username(status_dictionary.account.display_name)
+	new_status.set_username(_get_username(status_dictionary.account))
 	new_status.set_avatar(status_dictionary.account.avatar)
 	new_status.set_content(HtmlParser.convert_html_to_bbcode(content_raw))
 	if status_dictionary.media_attachments:
@@ -47,12 +47,15 @@ func _create_reblog_status(status_dictionary: Dictionary) -> Control:
 	var new_status = STATUS.instantiate()
 	%StatusList.add_child(new_status)
 	var content_raw: String = status_dictionary.reblog.content
-	new_status.set_username(status_dictionary.reblog.account.display_name)
+	new_status.set_username(_get_username(status_dictionary.reblog.account))
 	new_status.set_avatar(status_dictionary.reblog.account.avatar)
 	new_status.set_content(HtmlParser.convert_html_to_bbcode(content_raw))
 	if status_dictionary.reblog.media_attachments:
 		new_status.set_media_attachments(status_dictionary.reblog.media_attachments)
 	return null
+
+static func _get_username(account) -> String:
+	return account.display_name if not account.display_name.is_empty() else account.username
 
 static func _parse_json(response_body: PackedByteArray) -> Variant:
 	var json = JSON.new()
