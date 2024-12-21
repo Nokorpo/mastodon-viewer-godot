@@ -2,7 +2,7 @@ class_name HtmlParser
 extends RefCounted
 
 static var instance: HtmlParser:
-	get():
+	get:
 		instance = HtmlParser.new()
 		return instance
 

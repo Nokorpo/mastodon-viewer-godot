@@ -26,7 +26,7 @@ func _update_user_status_updates(result, _response_code, _headers, body):
 
 	$Status.visible = false
 	var json = _parse_json(body)
-	for status_dictionary: Dictionary in json:
+	for status_dictionary in json:
 		if status_dictionary.reblog:
 			_create_reblog_status(status_dictionary)
 		else:
