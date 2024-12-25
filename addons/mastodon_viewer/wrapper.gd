@@ -15,7 +15,7 @@ const MASTODON_VIEWER_NODE = preload("res://addons/mastodon_viewer/interface/mas
 		profile_url = url
 		if Engine.is_editor_hint() and self.is_inside_tree() and not url.is_empty():
 			if url.count("/") < 3:
-				show_error("The URL is not a valid Mastodon user profile URL.")
+				_show_error("The URL is not a valid Mastodon user profile URL.")
 				return
 			var url_parser: UrlParser = UrlParser.new(url)
 			if server_url == url_parser.server_url and username == url_parser.path:
@@ -48,15 +48,15 @@ const MASTODON_VIEWER_NODE = preload("res://addons/mastodon_viewer/interface/mas
 ## Example: "nokorpo"
 @export var username: String
 
-var mastodon_viewer_instance: Control
+var _mastodon_viewer_instance: Control
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():
-		mastodon_viewer_instance = MASTODON_VIEWER_NODE.instantiate()
-		mastodon_viewer_instance.server_url = server_url
-		mastodon_viewer_instance.user_id = user_id
-		mastodon_viewer_instance.statuses_quantity = statuses_quantity
-		add_child(mastodon_viewer_instance)
+		_mastodon_viewer_instance = MASTODON_VIEWER_NODE.instantiate()
+		_mastodon_viewer_instance.server_url = server_url
+		_mastodon_viewer_instance.user_id = user_id
+		_mastodon_viewer_instance.statuses_quantity = statuses_quantity
+		add_child(_mastodon_viewer_instance)
 
 func _request_user_data(domain: String, user_name_from_path: String) -> void:
 	var request_url = "https://%s/api/v1/accounts/lookup?acct=%s@%s" \
@@ -67,25 +67,25 @@ func _request_user_data(domain: String, user_name_from_path: String) -> void:
 	http_request.request_completed.connect(http_request.queue_free.unbind(4))
 	var error = http_request.request(request_url)
 	if error != OK:
-		show_error("Error retrieving user data. Please, check the user exists.")
+		_show_error("Error retrieving user data. Please, check the user exists.")
 
 func _update_user_data(result, _response_code, _headers, body) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS:
-		show_error("Error retrieving user data. Please, check the user exists.")
+		_show_error("Error retrieving user data. Please, check the user exists.")
 		return
 
 	var json = _parse_json(body)
 	if json.has("error"):
-		show_error("Error retrieving user. The server returned: %s" % json["error"])
+		_show_error("Error retrieving user. The server returned: %s" % json["error"])
 		return
 
 	user_id = json["id"]
 	username = json["username"]
 	print("Successfully set user id and domain.")
 
-func show_error(message: String):
+func _show_error(message: String):
 	if !Engine.is_editor_hint():
-		mastodon_viewer_instance.get_node("Status").text = message
+		_mastodon_viewer_instance.get_node("Status").text = message
 	push_warning(message)
 
 static func _parse_json(response_body: PackedByteArray) -> Variant:

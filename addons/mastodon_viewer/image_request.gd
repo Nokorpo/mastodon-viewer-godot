@@ -17,7 +17,7 @@ func request_image(url: String) -> void:
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
-func _http_request_completed(result, _response_code, _headers, body):
+func _http_request_completed(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_warning("Image couldn't be downloaded. Try a different image.")
 		return

@@ -17,11 +17,11 @@ func _request_user_status_updates() -> void:
 	var error = http_request.request("%s/api/v1/accounts/%s/statuses?limit=%s" \
 		% [server_url, user_id, str(statuses_quantity)])
 	if error != OK:
-		show_error("An error occurred in the HTTP request.")
+		_show_error("An error occurred in the HTTP request.")
 
-func _update_user_status_updates(result, _response_code, _headers, body):
+func _update_user_status_updates(result: int, _response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS:
-		show_error("An error occurred in the HTTP request.")
+		_show_error("An error occurred in the HTTP request.")
 		return
 
 	$Status.visible = false
@@ -54,7 +54,7 @@ func _create_reblog_status(status_dictionary: Dictionary) -> Control:
 		new_status.set_media_attachments(status_dictionary.reblog.media_attachments)
 	return null
 
-static func _get_username(account) -> String:
+static func _get_username(account: Dictionary) -> String:
 	return account.display_name if not account.display_name.is_empty() else account.username
 
 static func _parse_json(response_body: PackedByteArray) -> Variant:
@@ -62,7 +62,7 @@ static func _parse_json(response_body: PackedByteArray) -> Variant:
 	json.parse(response_body.get_string_from_utf8())
 	return json.get_data()
 
-func show_error(message: String):
+func _show_error(message: String) -> void:
 	if !Engine.is_editor_hint():
 		$Status.text = message
 	push_warning(message)
