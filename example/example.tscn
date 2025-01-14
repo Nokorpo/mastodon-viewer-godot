@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsnt3vo2uuofs"]
+[gd_scene load_steps=3 format=3 uid="uid://bsnt3vo2uuofs"]
 
+[ext_resource type="Theme" uid="uid://dkxgx5euueprj" path="res://example/example_theme.tres" id="1_6c8qp"]
 [ext_resource type="Script" path="res://addons/mastodon_viewer/wrapper.gd" id="1_uygan"]
 
 [node name="Example" type="MarginContainer"]
@@ -18,6 +19,7 @@ theme_override_constants/margin_bottom = 40
 [node name="MastodonViewer" type="Control" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_6c8qp")
 script = ExtResource("1_uygan")
 profile_url = "https://gamedev.lgbt/@nokorpo"
 server_url = "https://gamedev.lgbt"

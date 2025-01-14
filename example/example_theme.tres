@@ -1,0 +1,15 @@
+[gd_resource type="Theme" format=3 uid="uid://dkxgx5euueprj"]
+
+[resource]
+MarginContainer/constants/margin_bottom = 15
+MarginContainer/constants/margin_left = 15
+MarginContainer/constants/margin_right = 15
+MarginContainer/constants/margin_top = 15
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/font_sizes/normal_font_size = 16
+StatusList/base_type = &"VBoxContainer"
+StatusList/constants/separation = 16
+Username/base_type = &"Label"
+Username/colors/font_color = Color(0.00830487, 0.631994, 1, 1)
+Username/font_sizes/font_size = 22
+VBoxContainer/constants/separation = 10
